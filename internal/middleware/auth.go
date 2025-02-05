@@ -7,7 +7,7 @@ import (
 	"github.com/golang-jwt/jwt/v4"
 )
 
-var jwtSecret = []byte("your_secret_key") // !!! Используй os.Getenv("JWT_SECRET") !!!
+var jwtSecret = []byte("your_secret_key") //
 
 func AuthMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
