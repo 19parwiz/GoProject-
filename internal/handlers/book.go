@@ -1,4 +1,3 @@
-// internal/handlers/book.go
 package handlers
 
 import (
