@@ -2,6 +2,7 @@ package models
 
 import "time"
 
+// 2. Defining the User Struct
 type User struct {
 	ID        int       `json:"id"`
 	Name      string    `json:"name"`
