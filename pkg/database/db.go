@@ -26,6 +26,12 @@ func ConnectDB() (*sql.DB, error) {
 	password := os.Getenv("DB_PASSWORD")
 	dbname := os.Getenv("DB_NAME")
 
+	fmt.Println("Database Connection Details:")
+	fmt.Println("Host:", host)
+	fmt.Println("Port:", port)
+	fmt.Println("User:", user)
+	fmt.Println("DB Name:", dbname)
+
 	dsn := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",
 		host, port, user, password, dbname)
 
@@ -34,7 +40,7 @@ func ConnectDB() (*sql.DB, error) {
 		return nil, err
 	}
 
-	// Проверяем соединение
+	// Checking the Connection
 	err = db.Ping()
 	if err != nil {
 		return nil, err

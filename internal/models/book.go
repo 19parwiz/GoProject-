@@ -1,6 +1,7 @@
 // internal/models/book.go
 package models
 
+//  Defining the Book Struct
 type Book struct {
 	ID            int     `json:"id"`
 	Title         string  `json:"title"`

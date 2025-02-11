@@ -6,3 +6,4 @@ CREATE TABLE books (
     published_date DATE,
     price DECIMAL(10, 2)
 );
+

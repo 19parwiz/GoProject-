@@ -4,18 +4,21 @@ import (
 	"bookstore/internal/models"
 	"bookstore/internal/repository"
 	"errors"
+
 	"golang.org/x/crypto/bcrypt"
 )
 
+// UserService Struct
 type UserService struct {
 	UserRepo *repository.UserRepository
 }
 
+// Constructor Function: NewUserService
 func NewUserService(userRepo *repository.UserRepository) *UserService {
 	return &UserService{UserRepo: userRepo}
 }
 
-// Регистрация пользователя (с хешированием пароля)
+// RegisterUser Method  user registeration with hashing password
 func (s *UserService) RegisterUser(user *models.User) error {
 	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(user.Password), bcrypt.DefaultCost)
 	if err != nil {
@@ -26,14 +29,14 @@ func (s *UserService) RegisterUser(user *models.User) error {
 	return s.UserRepo.CreateUser(user)
 }
 
-// Вход в систему (проверка пароля)
+// Login (password verification)         LoginUser Method
 func (s *UserService) LoginUser(email, password string) (*models.User, error) {
 	user, err := s.UserRepo.GetUserByEmail(email)
 	if err != nil {
 		return nil, err
 	}
 
-	// Проверка пароля
+	// Password Verification
 	if err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(password)); err != nil {
 		return nil, errors.New("invalid credentials")
 	}

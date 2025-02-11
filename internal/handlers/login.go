@@ -18,8 +18,11 @@ func NewLoginHandler(userService *service.UserService) *LoginHandler {
 }
 
 type LoginRequest struct {
-	Email    string `json:"email"`
-	Password string `json:"password"`
+	ID        int       `json:"id"`
+	Email     string    `json:"email"`
+	Password  string    `json:"password"`
+	Name      string    `json:"name"`
+	CreatedAt time.Time `json:"created_at"`
 }
 
 type LoginResponse struct {
