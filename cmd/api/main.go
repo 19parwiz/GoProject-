@@ -63,7 +63,7 @@ func main() {
 	r.Handle("/orders", middleware.AuthMiddleware(http.HandlerFunc(orderHandler.CreateOrder))).Methods("POST")
 	r.Handle("/orders", middleware.AuthMiddleware(http.HandlerFunc(orderHandler.GetOrders))).Methods("GET")
 	r.Handle("/orders/{id}", middleware.AuthMiddleware(http.HandlerFunc(orderHandler.GetOrderByID))).Methods("GET")
-	r.Handle("/orders/{id}/status", middleware.AuthMiddleware(http.HandlerFunc(orderHandler.UpdateOrderStatus))).Methods("PUT")
+	r.Handle("/orders/{id}", middleware.AuthMiddleware(http.HandlerFunc(orderHandler.UpdateOrderStatus))).Methods("PUT")
 
 	// Payments API route
 	r.HandleFunc("/api/payment", paymentHandler.HandlePayment).Methods("POST")

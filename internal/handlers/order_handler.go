@@ -3,7 +3,9 @@ package handlers
 import (
 	"bookstore/internal/models"
 	"bookstore/internal/service"
+	"bookstore/pkg/config"
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"strconv"
 	"strings"
@@ -21,37 +23,41 @@ func NewOrderHandler(orderService *service.OrderService) *OrderHandler {
 }
 
 // Функция для извлечения user_id из JWT-токена
-func extractUserIDFromToken(r *http.Request, jwtSecret []byte) (int, error) {
+func extractUserIDFromToken(r *http.Request) (int, error) {
 	authHeader := r.Header.Get("Authorization")
 	if authHeader == "" {
-		return 0, http.ErrNoCookie
+		return 0, fmt.Errorf("missing Authorization header")
 	}
 
 	parts := strings.Split(authHeader, " ")
 	if len(parts) != 2 || parts[0] != "Bearer" {
-		return 0, http.ErrNoCookie
+		return 0, fmt.Errorf("invalid Authorization header format")
 	}
 
 	tokenString := parts[1]
+	fmt.Println("Extracting user_id from token:", tokenString) // Логируем токен
+
+	// Парсим токен
 	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
 		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
-			return nil, http.ErrNoCookie
+			return nil, fmt.Errorf("unexpected signing method: %v", token.Header["alg"])
 		}
-		return jwtSecret, nil
+		return []byte(config.JwtSecret), nil
 	})
 
 	if err != nil || !token.Valid {
-		return 0, http.ErrNoCookie
+		return 0, fmt.Errorf("invalid token: %v", err)
 	}
 
 	claims, ok := token.Claims.(jwt.MapClaims)
 	if !ok {
-		return 0, http.ErrNoCookie
+		return 0, fmt.Errorf("invalid token claims")
 	}
 
+	// Проверяем наличие user_id
 	userIDFloat, ok := claims["user_id"].(float64)
 	if !ok {
-		return 0, http.ErrNoCookie
+		return 0, fmt.Errorf("user_id not found in token")
 	}
 
 	return int(userIDFloat), nil
@@ -59,11 +65,9 @@ func extractUserIDFromToken(r *http.Request, jwtSecret []byte) (int, error) {
 
 // Создание заказа
 func (h *OrderHandler) CreateOrder(w http.ResponseWriter, r *http.Request) {
-	jwtSecret := []byte("your_secret_key") // Убедитесь, что ключ совпадает с тем, который использовался при генерации токена
-
-	userID, err := extractUserIDFromToken(r, jwtSecret)
+	userID, err := extractUserIDFromToken(r)
 	if err != nil {
-		http.Error(w, "Invalid or missing token", http.StatusUnauthorized)
+		http.Error(w, err.Error(), http.StatusUnauthorized)
 		return
 	}
 
