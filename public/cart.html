@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wishlist - BookStore</title>
+    <title>Cart & Order - BookStore</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="styles.css">
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
@@ -30,47 +30,34 @@
 
         <!-- Main Content -->
         <main class="container-fluid p-4">
-            <h2>Wishlist</h2>
+            <h2>Cart</h2>
             <div class="row">
-                <!-- Wishlist Section -->
+                <!-- Cart Items -->
                 <div class="col-md-8">
                     <div class="p-3 bg-light">
-                        <h4>Your list</h4>
-                        <h1>4</h1>
-                        <p>Resources</p>
+                        <h4>Your Cart</h4>
                         <ul class="list-group">
                             <li class="list-group-item d-flex justify-content-between align-items-center">
-                                Harry Potter <i class="fas fa-times text-danger"></i>
+                                Book 1 <i class="fas fa-times text-danger"></i>
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-center">
-                                C++ for beginners <i class="fas fa-times text-danger"></i>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                Steve Jobs: TECH IMPERIA <i class="fas fa-times text-danger"></i>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                Грокаем Алгоритмы <i class="fas fa-times text-danger"></i>
+                                Book 2 <i class="fas fa-times text-danger"></i>
                             </li>
                         </ul>
-                        <button class="btn btn-outline-primary mt-3">View All</button>
+                        <button class="btn btn-outline-primary mt-3">Continue Shopping</button>
                     </div>
                 </div>
 
-                <!-- In Cart & Buttons Section -->
+                <!-- Checkout Section -->
                 <div class="col-md-4">
-                    <div class="d-flex justify-content-end">
-                        <button class="btn btn-primary mb-2">Add more <i class="fas fa-plus"></i></button>
-                    </div>
                     <div class="p-3 bg-light mb-3">
-                        <h4>In cart</h4>
-                        <h1>2</h1>
-                        <p>Resources</p>
-                        <button class="btn btn-outline-primary">Go to the cart</button>
-                    </div>
-                    <div class="p-3 bg-light">
-                        <button class="btn btn-primary w-100">Check</button>
+                        <h4>Total</h4>
+                        <h1>$50</h1>
+                        <a href="order.html" class="btn btn-primary w-100">Proceed to Checkout</a>
                     </div>
                 </div>
+            </div>
+
             </div>
         </main>
     </div>

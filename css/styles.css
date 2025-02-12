@@ -1,0 +1,18 @@
+.icons a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.icons i {
+    cursor: pointer;
+}
+
+.icon-link {
+    color: white !important; /* Принудительно белый цвет */
+    text-decoration: none; /* Убираем подчеркивание */
+}
+
+.icon-link:hover {
+    color: lightgray !important; /* Цвет при наведении */
+}
+

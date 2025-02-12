@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - BookStore</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <header class="bg-dark text-white p-3 d-flex justify-content-between align-items-center">
+        <h1>BookStore</h1>
+        <div class="icons">
+            <i class="fas fa-user"></i>
+        </div>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    </header>
+    
+    <div class="d-flex">
+        <!-- Sidebar -->
+        <nav class="bg-dark text-white d-flex flex-column p-3" style="width: 60px; height: 100vh;">
+            <i class="fas fa-home mb-3"></i>
+            <i class="fas fa-sync mb-3"></i>
+            <i class="fas fa-plus mb-3"></i>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="container-fluid p-4">
+            <h2>Product Management</h2>
+            <p>Manage your products efficiently.</p>
+            <button class="btn btn-primary">Add Product</button>
+            <button class="btn btn-secondary">Edit Product</button>
+            <button class="btn btn-danger">Delete Product</button>
+            <input type="text" class="form-control d-inline w-auto" placeholder="Search Products">
+            <select class="form-control d-inline w-auto">
+                <option>Filter by Category</option>
+            </select>
+            <button class="btn btn-primary">Upload Covers</button>
+            
+            <h2 class="mt-4">Order Management</h2>
+            <p>Track and update order statuses.</p>
+            <select class="form-control d-inline w-auto">
+                <option>Filter by Status</option>
+            </select>
+            <button class="btn btn-primary">Update Status</button>
+            
+            <h2 class="mt-4">Promotions Management</h2>
+            <p>Create and manage promotions.</p>
+            <button class="btn btn-primary">Create Promotion</button>
+            <button class="btn btn-secondary">Set Discounts</button>
+            
+            <h2 class="mt-4">Analytics</h2>
+            <p>View sales and user activity.</p>
+            <div class="bg-light p-3">
+                <p>Analytics charts placeholder</p>
+            </div>
+            
+            <h2 class="mt-4">Reviews Management</h2>
+            <p>Moderate customer reviews.</p>
+            <button class="btn btn-primary">View Reviews</button>
+            <button class="btn btn-danger">Delete Review</button>
+            
+            <h2 class="mt-4">Site Settings</h2>
+            <p>Configure site preferences.</p>
+            <button class="btn btn-primary">Edit Logo</button>
+            <button class="btn btn-secondary">Contact Info</button>
+            <button class="btn btn-primary">Policies</button>
+            <button class="btn btn-secondary">User Roles</button>
+        </main>
+    </div>
+</body>
+</html>
