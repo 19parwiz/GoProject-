@@ -26,7 +26,6 @@ func AuthMiddleware(next http.Handler) http.Handler {
 			http.Error(w, "Invalid Authorization header format", http.StatusUnauthorized)
 			return
 		}
-
 		//6. Parsing and Validating the JWT
 		tokenString := parts[1]
 
