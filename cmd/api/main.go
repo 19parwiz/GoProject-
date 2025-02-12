@@ -32,6 +32,10 @@ func main() {
 	registrationHandler := handlers.NewRegistrationHandler(userService)
 	loginHandler := handlers.NewLoginHandler(userService)
 
+	orderRepo := repository.NewOrderRepository(db)
+	orderService := service.NewOrderService(orderRepo)
+	orderHandler := handlers.NewOrderHandler(orderService)
+
 	paymentService := payments.NewPaymentService(db) // Directly using db
 	paymentHandler := handlers.NewPaymentHandler(paymentService)
 	// Book Management
@@ -55,6 +59,11 @@ func main() {
 	r.HandleFunc("/register", registrationHandler.Register).Methods("POST")
 	r.HandleFunc("/login", loginHandler.Login).Methods("POST")
 	r.HandleFunc("/logout", loginHandler.Logout).Methods("POST")
+
+	r.Handle("/orders", middleware.AuthMiddleware(http.HandlerFunc(orderHandler.CreateOrder))).Methods("POST")
+	r.Handle("/orders", middleware.AuthMiddleware(http.HandlerFunc(orderHandler.GetOrders))).Methods("GET")
+	r.Handle("/orders/{id}", middleware.AuthMiddleware(http.HandlerFunc(orderHandler.GetOrderByID))).Methods("GET")
+	r.Handle("/orders/{id}/status", middleware.AuthMiddleware(http.HandlerFunc(orderHandler.UpdateOrderStatus))).Methods("PUT")
 
 	// Payments API route
 	r.HandleFunc("/api/payment", paymentHandler.HandlePayment).Methods("POST")

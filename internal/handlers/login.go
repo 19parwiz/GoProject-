@@ -2,7 +2,9 @@ package handlers
 
 import (
 	"bookstore/internal/service"
+	"bookstore/pkg/config"
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"time"
 
@@ -30,12 +32,13 @@ type LoginResponse struct {
 	Message string `json:"message"`
 }
 
-var jwtSecret = []byte("your_secret_key")
-
-func generateToken(email string) (string, error) {
+func generateToken(userID int, email string) (string, error) {
+	var jwtSecret = []byte(config.JwtSecret)
+	fmt.Println("JWT Secret in login.go:", string(jwtSecret))
 	claims := jwt.MapClaims{
-		"email": email,
-		"exp":   time.Now().Add(time.Hour * 24).Unix(),
+		"user_id": userID, // Теперь токен будет содержать user_id
+		"email":   email,
+		"exp":     time.Now().Add(time.Hour * 24).Unix(),
 	}
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
@@ -55,7 +58,8 @@ func (h *LoginHandler) Login(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	token, err := generateToken(user.Email)
+	token, err := generateToken(user.ID, user.Email)
+
 	if err != nil {
 		http.Error(w, "Failed to generate token", http.StatusInternalServerError)
 		return
