@@ -68,6 +68,14 @@ func main() {
 	// Payments API route
 	r.HandleFunc("/api/payment", paymentHandler.HandlePayment).Methods("POST")
 
+	// Главная страница (добавляем явный маршрут для "/")
+	r.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, "public/home.html")
+	}).Methods("GET")
+
+	// Теперь раздаём статические файлы, но не мешаем главной странице
+	r.PathPrefix("/").Handler(http.StripPrefix("/", http.FileServer(http.Dir("public"))))
+
 	//  Starting the HTTP Server
 	log.Println("Server started on :8080")
 	log.Fatal(http.ListenAndServe(":8080", r))
