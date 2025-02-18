@@ -43,3 +43,12 @@ func (s *UserService) LoginUser(email, password string) (*models.User, error) {
 
 	return user, nil
 }
+
+// Новый метод: Получить пользователя по ID
+func (s *UserService) GetUserByID(userID int) (*models.User, error) {
+	user, err := s.UserRepo.GetUserByID(userID)
+	if err != nil {
+		return nil, errors.New("user not found")
+	}
+	return user, nil
+}

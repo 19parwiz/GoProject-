@@ -35,3 +35,18 @@ func (r *UserRepository) GetUserByEmail(email string) (*models.User, error) {
 
 	return user, err
 }
+
+// Новый метод: Получить пользователя по ID
+func (r *UserRepository) GetUserByID(userID int) (*models.User, error) {
+	user := &models.User{}
+	query := "SELECT id, name, email FROM users WHERE id = $1"
+	err := r.DB.QueryRow(query, userID).Scan(&user.ID, &user.Name, &user.Email)
+
+	if err == sql.ErrNoRows {
+		return nil, errors.New("user not found")
+	} else if err != nil {
+		return nil, err
+	}
+
+	return user, nil
+}

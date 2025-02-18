@@ -8,6 +8,7 @@ import (
 	"bookstore/internal/service/payments"
 	"bookstore/pkg/config"
 	"bookstore/pkg/database"
+	"encoding/json"
 	"log"
 	"net/http"
 
@@ -47,6 +48,9 @@ func main() {
 	// Defining API Routes
 	r := mux.NewRouter()
 
+	// Включаем CORS Middleware для всех маршрутов
+	r.Use(middleware.CORSMiddleware)
+
 	// Book API Routes (Protected by Authentication Middleware)
 	r.Handle("/books", middleware.AuthMiddleware(http.HandlerFunc(bookHandler.CreateBook))).Methods("POST")
 	r.Handle("/books", middleware.AuthMiddleware(http.HandlerFunc(bookHandler.GetBooks))).Methods("GET")
@@ -73,7 +77,24 @@ func main() {
 		http.ServeFile(w, r, "public/home.html")
 	}).Methods("GET")
 
-	// Теперь раздаём статические файлы, но не мешаем главной странице
+	// Маршрут для получения данных пользователя
+	r.Handle("/api/user", middleware.AuthMiddleware(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		userID, err := middleware.GetUserIDFromToken(r)
+		if err != nil {
+			http.Error(w, "Unauthorized", http.StatusUnauthorized)
+			return
+		}
+
+		user, err := userService.GetUserByID(userID)
+		if err != nil {
+			http.Error(w, "User not found", http.StatusNotFound)
+			return
+		}
+
+		json.NewEncoder(w).Encode(user)
+	}))).Methods("GET")
+
+	// Теперь раздаём статические файлы
 	r.PathPrefix("/").Handler(http.StripPrefix("/", http.FileServer(http.Dir("public"))))
 
 	//  Starting the HTTP Server

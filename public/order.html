@@ -5,87 +5,77 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Order - BookStore</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="styles.css">
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
-    <header class="bg-dark text-white p-3 d-flex justify-content-between align-items-center">
-        <h1 style="user-select: none; pointer-events: none;">BookStore</h1>
-        <div class="icons">
-            <i class="fas fa-shopping-cart" style="cursor: pointer;" onclick="location.href='cart.html'"></i>
-            <i class="fas fa-bell ms-3" style="cursor: pointer;" onclick="location.href='#'"></i>
-            <i class="fas fa-user ms-3" style="cursor: pointer;" onclick="location.href='settings.html'"></i>
-        </div>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    </header>
-    
-    <div class="d-flex">
-
-        <nav class="bg-dark text-white d-flex flex-column p-3" style="width: 60px; height: 100vh;">
-            <i class="fas fa-bars mb-3" style="cursor: pointer;" onclick="location.href='catalog.html'"></i>
-            <i class="fas fa-home mb-3" style="cursor: pointer;" onclick="location.href='home.html'"></i>
-            <i class="fas fa-sync mb-3" style="cursor: pointer;" onclick="location.reload();"></i>
-            <i class="fas fa-plus" style="cursor: pointer;" onclick="location.href='whishlist.html'"></i>
-        </nav>
-
-        <main class="container-fluid p-4">
-            <h2 class="mt-5">Order</h2>
-            <div class="row">
-                <div class="col-md-8">
-                    <div class="p-3 bg-light">
-                        <h4>Shipping Information</h4>
-                        <input type="text" class="form-control mb-2" placeholder="Full Name">
-                        <input type="text" class="form-control mb-2" placeholder="Email">
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="p-3 bg-light">
-                        <h4>Payment</h4>
-                        <input type="text" class="form-control mb-2" placeholder="Card Number">
-                        <div class="d-flex">
-                            <input type="text" class="form-control me-2" placeholder="MM/YY">
-                            <input type="text" class="form-control" placeholder="CVC">
-                        </div>
-                        <button class="btn btn-primary w-100 mt-3">Place Order</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Order Status Check -->
-            <h2 class="mt-5">Check Order Status</h2>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="p-3 bg-light">
-                        <h4>Enter Order Number</h4>
-                        <input type="text" id="orderNumber" class="form-control mb-2" placeholder="Order Number">
-                        <button class="btn btn-primary w-100" onclick="checkOrderStatus()">Check Status</button>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="p-3 bg-light">
-                        <h4>Order Status</h4>
-                        <p id="orderStatus">Enter your order number to check status.</p>
-                    </div>
-                </div>
-            </div>
-        </main>
+<header class="bg-dark text-white p-3 d-flex justify-content-between align-items-center">
+    <h1 style="user-select: none; pointer-events: none;">BookStore</h1>
+    <div class="icons">
+        <i class="fas fa-shopping-cart" style="cursor: pointer;" onclick="location.href='cart.html'"></i>
+        <i class="fas fa-bell ms-3" style="cursor: pointer;" onclick="location.href='#'"></i>
+        <i class="fas fa-user ms-3" style="cursor: pointer;" onclick="location.href='settings.html'"></i>
     </div>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</header>
 
-    <script>
-        function checkOrderStatus() {
-            const orderNumber = document.getElementById("orderNumber").value;
-            const statusDisplay = document.getElementById("orderStatus");
-            
-            if (!orderNumber) {
-                statusDisplay.textContent = "Please enter a valid order number.";
-                return;
-            }
+<div class="d-flex">
+    <nav class="bg-dark text-white d-flex flex-column p-3" style="width: 60px; height: 100vh;">
+        <i class="fas fa-bars mb-3" style="cursor: pointer;" onclick="location.href='catalog.html'"></i>
+        <i class="fas fa-home mb-3" style="cursor: pointer;" onclick="location.href='home.html'"></i>
+        <i class="fas fa-sync mb-3" style="cursor: pointer;" onclick="location.reload();"></i>
+        <i class="fas fa-plus" style="cursor: pointer;" onclick="location.href='whishlist.html'"></i>
+    </nav>
 
-            const statuses = ["Not Paid", "Paid", "Issued", "Cancelled"];
-            const randomStatus = statuses[Math.floor(Math.random() * statuses.length)];
-            
-            statusDisplay.textContent = `Order #${orderNumber}: ${randomStatus}`;
-        }
-    </script>
+    <main class="container-fluid p-4">
+        <h2 class="mt-5">Order</h2>
+        <div class="row">
+            <div class="col-md-8">
+                <div class="p-3 bg-light">
+                    <h4>Shipping Information</h4>
+                    <input type="text" class="form-control mb-2" placeholder="Full Name">
+                    <input type="text" class="form-control mb-2" placeholder="Email">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="p-3 bg-light">
+                    <h4>Payment</h4>
+                    <input type="text" class="form-control mb-2" placeholder="Card Number">
+                    <div class="d-flex">
+                        <input type="text" class="form-control me-2" placeholder="MM/YY">
+                        <input type="text" class="form-control" placeholder="CVC">
+                    </div>
+                    <button class="btn btn-primary w-100 mt-3">Place Order</button>
+                </div>
+            </div>
+        </div>
+
+        <h4>Order List</h4>
+        <ul id="ordersList" class="list-group"></ul>
+
+
+        <!-- Order Status Check -->
+        <h2 class="mt-5">Check Order Status</h2>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="p-3 bg-light">
+                    <h4>Enter Order Number</h4>
+                    <input type="text" id="orderNumber" class="form-control mb-2" placeholder="Order Number">
+                    <button class="btn btn-primary w-100" onclick="checkOrderStatus()">Check Status</button>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="p-3 bg-light">
+                    <h4>Order Status</h4>
+                    <p id="orderStatus">Enter your order number to check status.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/orders.js"></script>
 </body>
 </html>
