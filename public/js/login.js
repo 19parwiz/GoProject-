@@ -26,7 +26,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 if (data.token) {
                     saveToken(data.token); // Сохраняем токен в localStorage
                     alert("Login successful!");
-                    window.location.href = "home.html"; // Перенаправление на главную
+
+                    window.location.replace("home.html"); // Перенаправление на главную
+
                 } else {
                     alert("Error: " + (data.error || "Invalid credentials"));
                 }
