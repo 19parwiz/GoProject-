@@ -25,10 +25,10 @@ func main() {
 	defer db.Close()
 
 	// Initializing Repositories, Services, and Handlers
-	//User Management
 
 	userRepo := repository.NewUserRepository(db)
 	userService := service.NewUserService(userRepo)
+	recommendationRepo := repository.NewRecommendationRepository(db)
 
 	registrationHandler := handlers.NewRegistrationHandler(userService)
 	loginHandler := handlers.NewLoginHandler(userService)
@@ -44,6 +44,9 @@ func main() {
 	bookService := service.NewBookService(bookRepo)
 	bookHandler := handlers.NewBookHandler(bookService)
 	mailHandler := handlers.NewMailHandler()
+	// Recommendation System (NEW)
+	recommendationService := service.NewRecommendationService(recommendationRepo)
+	recommendationHandler := handlers.NewRecommendationHandler(recommendationService)
 
 	// Defining API Routes
 	r := mux.NewRouter()
@@ -57,6 +60,10 @@ func main() {
 	r.Handle("/books/{id}", middleware.AuthMiddleware(http.HandlerFunc(bookHandler.GetBookByID))).Methods("GET")
 	r.Handle("/books/{id}", middleware.AuthMiddleware(http.HandlerFunc(bookHandler.UpdateBook))).Methods("PUT")
 	r.Handle("/books/{id}", middleware.AuthMiddleware(http.HandlerFunc(bookHandler.DeleteBook))).Methods("DELETE")
+	//  Recommendation API Route (NEW)
+	r.Handle("/api/recommendations/{userID}",
+		middleware.AuthMiddleware(http.HandlerFunc(recommendationHandler.GetRecommendations)),
+	).Methods("GET")
 
 	// User Authentication & Email Routes
 	r.HandleFunc("/send-email", mailHandler.SendEmail).Methods("POST")

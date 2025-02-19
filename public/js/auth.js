@@ -1,5 +1,5 @@
 function getToken() {
-    return localStorage.getItem("authToken"); // Используем "authToken" вместо "token"
+    return localStorage.getItem("authToken"); // Use "authToken" instead of "token"
 }
 
 function saveToken(token) {
@@ -10,16 +10,16 @@ function removeToken() {
     localStorage.removeItem("authToken");
 }
 
-// Проверка токена перед загрузкой страниц
+// Checking the token before loading pages
 function checkAuth() {
     const token = getToken();
-    console.log("Checking auth token:", token); // Логируем токен для проверки
+    console.log("Checking auth token:", token); // Log the token for checking
     if (!token) {
-        window.location.href = "login.html"; // Перенаправление на логин
+        window.location.href = "login.html"; // Redirect to login if no token
     }
 }
 
-// Получение данных пользователя и отображение имени в UI
+// Fetching user data and displaying their name in the UI
 function loadUserData() {
     const token = getToken();
     const userNameElement = document.getElementById("user-name");
@@ -36,21 +36,22 @@ function loadUserData() {
                 return response.json();
             })
             .then(data => {
-                userNameElement.textContent = `Hello, ${data.name}`; // Отображаем имя пользователя
+                userNameElement.textContent = `Hello, ${data.name}`; //  Display user's name
             })
             .catch(error => {
                 console.error("Failed to load user data:", error);
-                userNameElement.textContent = "Guest"; // Показываем "Guest", если ошибка
+                userNameElement.textContent = "Guest"; // Display "Guest" if there is an error
             });
     }
 }
 
-// Выполняем проверку при загрузке страницы
+// Perform the check on page load
 document.addEventListener("DOMContentLoaded", function () {
-    checkAuth(); // Проверяем, залогинен ли пользователь
-    loadUserData(); // Загружаем данные пользователя
+    checkAuth(); // Check if the user is logged in
+    loadUserData(); //Load the user data
 
-    // Выход из аккаунта
+
+    // Logout from the account
     const logoutBtn = document.getElementById("logout-btn");
     if (logoutBtn) {
         logoutBtn.addEventListener("click", function () {
