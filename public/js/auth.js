@@ -61,3 +61,25 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+    const loginForm = document.getElementById("loginForm");
+
+    if (loginForm) {
+        loginForm.addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+
+            // Пример проверки (замени на свою логику)
+            if (email === "admin@example.com" && password === "adminadmin") {
+                localStorage.setItem("role", "admin");
+                window.location.href = "admin.html"; // Переход в админку
+            } else {
+                alert("Неверный email или пароль!");
+            }
+        });
+    }
+});
+

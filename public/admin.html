@@ -72,5 +72,23 @@
             <button class="btn btn-secondary">User Roles</button>
         </main>
     </div>
+
+    <button id="logout">Выйти</button>
+
+    <script>
+        document.getElementById("logout").addEventListener("click", function () {
+            localStorage.removeItem("role");
+            window.location.href = "login.html";
+        });
+    </script>
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            if (localStorage.getItem("role") !== "admin") {
+                window.location.href = "login.html"; // Если не админ, перекидываем на логин
+            }
+        });
+    </script>
 </body>
 </html>
