@@ -67,3 +67,32 @@
     background-color: #dcdcdc !important;  /* Темно-серый фон для кнопки */
     color: black !important;  /* Черный текст */
 }
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* Отключаем горизонтальный скролл */
+}
+
+.container-wrapper {
+    display: flex;
+    min-height: 100vh; /* Растягиваем контейнер на всю высоту */
+}
+
+nav {
+    width: 60px;
+    background-color: #212529; /* Темный фон */
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    min-height: 100vh; /* Делаем навбар высотой на весь экран */
+}
+
+main {
+    flex-grow: 1;
+    padding: 20px;
+    background-color: white; /* Убедись, что фон не серый */
+}
